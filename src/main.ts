@@ -11,6 +11,28 @@ WA.onInit().then(() => {
     console.log('Scripting API ready');
     console.log('Player tags: ',WA.player.tags)
 
+    WA.room.area.onEnter("garden-table").subscribe(() => {
+        WA.room.website.create({
+          name: "my_website",
+          url: "src/assets/qq.html",
+          position: {
+            x: 237,
+            y: 543,
+            width: 80,
+            height: 82,
+          },
+          visible: true,
+          allowApi: true,
+          allow: "fullscreen",
+          origin: "map",
+          scale: 1,
+        });
+    })
+
+    WA.room.area.onLeave("garden-table").subscribe(() => {
+        WA.room.website.delete("my_website")
+    })
+
     WA.room.onEnterLayer('clockZone').subscribe(() => {
         const today = new Date();
         const time = today.getHours() + ":" + today.getMinutes();
